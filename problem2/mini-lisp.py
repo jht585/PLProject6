@@ -38,8 +38,8 @@ class MiniLisp(cmd.Cmd):     # See https://docs.python.org/2/library/cmd.html
         s = lisp_str(AST)
         result = lis.eval(AST)
         if s != 'nil':
-            print s
-        print ("trying to evaluate result...")
+            print ("Parsed" + s + " into AST: " + str(AST))
+        print ("Trying to evaluate result...")
         print (result)
 
 if __name__ == '__main__':
