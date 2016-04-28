@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from myyacc import yacc, lisp_str
+from yacc import yacc, lisp_str
 import cmd
+import lis as lis
 
 class MiniLisp(cmd.Cmd):     # See https://docs.python.org/2/library/cmd.html
     """
@@ -33,13 +34,13 @@ class MiniLisp(cmd.Cmd):     # See https://docs.python.org/2/library/cmd.html
         """Called on an input line when the command prefix is not recognized.
            In that case we execute the line as Python code.
         """
-        result = yacc.parse(line)
-        #result = myeval.eval(result)
-        s = lisp_str(result)
+        AST = yacc.parse(line)
+        s = lisp_str(AST)
+        result = lis.eval(AST)
         if s != 'nil':
-            print ("it went through default. This is the result: ")
-            print (str(result))
             print s
+        print ("trying to evaluate result...")
+        print (result)
 
 if __name__ == '__main__':
         ml = MiniLisp()

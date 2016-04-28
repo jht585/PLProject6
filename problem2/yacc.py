@@ -79,7 +79,7 @@ def lisp_eval(simb, items):
     #    return call(name[simb], eval_lists(items))
     #else:
     #   return [simb] + items
-    return [simb] + items
+    return [simb] + items #no need to create an AST by hand, we already have one here!!!
 
 def call(f, l):
     try:

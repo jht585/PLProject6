@@ -3,9 +3,9 @@
 # This is a support program that auto-generates different versions of the YACC parsing
 # function with different features removed for the purposes of performance.
 #
-# Users should edit the method LParser.parsedebug() in myyacc.py.   The source code
+# Users should edit the method LParser.parsedebug() in yacc.py.   The source code 
 # for that method is then used to create the other methods.   See the comments in
-# myyacc.py for further details.
+# yacc.py for further details.
 
 import os.path
 import shutil
@@ -38,8 +38,8 @@ def filter_section(lines, tag):
 
 def main():
     dirname = os.path.dirname(__file__)
-    shutil.copy2(os.path.join(dirname, 'myyacc.py'), os.path.join(dirname, 'myyacc.py.bak'))
-    with open(os.path.join(dirname, 'myyacc.py'), 'r') as f:
+    shutil.copy2(os.path.join(dirname, 'yacc.py'), os.path.join(dirname, 'yacc.py.bak'))
+    with open(os.path.join(dirname, 'yacc.py'), 'r') as f:
         lines = f.readlines()
 
     parse_start, parse_end = get_source_range(lines, 'parsedebug')
@@ -60,10 +60,10 @@ def main():
     lines[parseopt_start:parseopt_end] = parseopt_lines
 
     lines = [line.rstrip()+'\n' for line in lines]
-    with open(os.path.join(dirname, 'myyacc.py'), 'w') as f:
+    with open(os.path.join(dirname, 'yacc.py'), 'w') as f:
         f.writelines(lines)
 
-    print('Updated myyacc.py')
+    print('Updated yacc.py')
 
 if __name__ == '__main__':
     main()

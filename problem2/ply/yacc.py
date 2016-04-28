@@ -1,5 +1,5 @@
 # -----------------------------------------------------------------------------
-# ply: myyacc.py
+# ply: yacc.py
 #
 # Copyright (C) 2001-2015,
 # David M. Beazley (Dabeaz LLC)
