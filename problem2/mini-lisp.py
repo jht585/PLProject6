@@ -36,12 +36,12 @@ class MiniLisp(cmd.Cmd):     # See https://docs.python.org/2/library/cmd.html
         """
         AST = yacc.parse(line)
         s = lisp_str(AST)
-        result = lis.eval(AST)
         if s != 'nil':
             print ("Parsed input: " + s)
             print ("into AST: " + str(AST))
-        print ("Trying to evaluate result...")
-        print (result)
+            print ("Trying to evaluate result...")
+            result = lis.eval(AST)
+            print (result)
 
 if __name__ == '__main__':
         ml = MiniLisp()
