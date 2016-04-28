@@ -105,7 +105,7 @@ def lisp_eval(simb, items):
     if simb in name:
         return call(name[simb], eval_lists(items))
     else:
-       return [simb] + items
+        return [simb] + items
 
 def call(f, l):
     try:
@@ -126,6 +126,7 @@ def eval_lists(l):
                 r.append(map[i])
             except KeyError:
                 r.append(i)
+
     return r
 
 # Utilities functions
@@ -166,12 +167,20 @@ def p_exp_call(p):
     p[0] = p[1]
 
 def p_exp_let_ass(p):
-    'exp : let call RPAREN'
-    p[0] = p[2]
+    'exp : LPAREN let call RPAREN'
+    try:
+        map.pop(p[2][0])
+    except KeyError:
+        pass
+    p[0] = p[3]
 
 def p_exp_let(p):
-    'exp : let RPAREN'
-    p[0] = p[1]
+    'exp : LPAREN let RPAREN'
+    try:
+        map.pop(p[2][0])
+    except KeyError:
+        pass
+    p[0] = p[2][1]
 
 def p_quoted_list(p):
     'quoted_list : QUOTE list'
@@ -219,10 +228,10 @@ def p_call(p):
     p[0] = lisp_eval(p[2], p[3])
 
 def p_let(p):
-    'let : LPAREN SIMB LPAREN SIMB NUM RPAREN'
-    if DEBUG: print "Assigning",p[5],"to", p[4]
-    map[p[4]] = p[5]
-    p[0] = p[5]
+    'let : LET LPAREN SIMB NUM RPAREN'
+    if DEBUG: print "Assigning",p[4],"to", p[3]
+    map[p[3]] = p[4]
+    p[0] = [p[3],p[4]]
 
 def p_atom_simbol(p):
     'atom : SIMB'
